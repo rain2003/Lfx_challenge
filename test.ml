@@ -1,3 +1,4 @@
+*prime number generator using the Sieve of Eratosthenes*
 let sieve n =
   let is_prime = Array.make (n + 1) true in
   for p = 2 to n do

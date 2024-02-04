@@ -19,11 +19,23 @@ function processList(inputList) {
     const testCases = [
       {
         input: Array.from({length: 10}, (_, i) => i + 1),
-        expected: [1, 5, 7], // Positions multiple of 2 or 3 are removed
+        expected: [1, 5, 7], // Basic functionality test
       },
       {
         input: Array.from({length: 20}, (_, i) => i + 1),
-        expected: [1, 5, 7, 11, 13, 17, 19], // Ditto, with 20 items
+        expected: [1, 5, 7, 11, 13, 17, 19], // Larger list
+      },
+      {
+        input: Array.from({length: 30}, (_, i) => -(i + 1)), // Correcting for clarity: negative numbers
+  expected: [-1, -5, -7, -11, -13, -17, -19, -23, -25, -29],
+      },
+      {
+        input: Array.from({length: 10}, () => 5), // Test with repeating numbers
+        expected: [5, 5, 5], // Only positions matter, not the values
+      },
+      {
+        input: [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000], // Test with large numbers
+        expected: [100000, 500000, 700000], 
       },
       {
         input: [], // Edge case: empty list (invalid for our requirements)
@@ -32,6 +44,10 @@ function processList(inputList) {
       {
         input: Array.from({length: 25}, (_, i) => i + 1), // Not a multiple of 10
         expectedError: true,
+      },
+      {
+        input: Array.from({length: 10}, (_, i) => i % 2 === 0 ? -(i + 1) : i + 1),
+  expected: [-1, -5, -7], // Positions 1, 5, and 7 not being multiples of 2 or 3
       },
     ];
   

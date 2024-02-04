@@ -5,36 +5,36 @@ function processList(inputList) {
     }
   
     // Filter out items at positions that are a multiple of 2 or 3
-    const filteredList = inputList.filter((item, index) => {
+    const newList = inputList.filter((item, index) => {
       // Adjust index to be 1-based for this calculation
       const position = index + 1;
       return position % 2 !== 0 && position % 3 !== 0;
     });
   
-    return filteredList;
+    return newList;
   }
   
   // Testing the function
   function testProcessList() {
     const testCases = [
       {
-        input: Array.from({length: 10}, (_, i) => i + 1),
-        expected: [1, 5, 7], // Basic functionality test
+        input: Array.from({length: 10}, (_, i) => i + 1), // all positive numbers
+        expected: [1, 5, 7], 
       },
       {
-        input: Array.from({length: 20}, (_, i) => i + 1),
-        expected: [1, 5, 7, 11, 13, 17, 19], // Larger list
+        input: Array.from({length: 20}, (_, i) => i + 1), // bigger list
+        expected: [1, 5, 7, 11, 13, 17, 19], 
       },
       {
-        input: Array.from({length: 30}, (_, i) => -(i + 1)), // Correcting for clarity: negative numbers
+        input: Array.from({length: 30}, (_, i) => -(i + 1)), // all negative numbers
   expected: [-1, -5, -7, -11, -13, -17, -19, -23, -25, -29],
       },
       {
-        input: Array.from({length: 10}, () => 5), // Test with repeating numbers
-        expected: [5, 5, 5], // Only positions matter, not the values
+        input: Array.from({length: 10}, () => 5), // test with repeating numbers
+        expected: [5, 5, 5], 
       },
       {
-        input: [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000], // Test with large numbers
+        input: [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000], // test with large numbers
         expected: [100000, 500000, 700000], 
       },
       {
@@ -42,18 +42,18 @@ function processList(inputList) {
         expectedError: true,
       },
       {
-        input: Array.from({length: 25}, (_, i) => i + 1), // Not a multiple of 10
+        input: Array.from({length: 25}, (_, i) => i + 1), // not a multiple of 10
         expectedError: true,
       },
       {
-        input: Array.from({length: 10}, (_, i) => i % 2 === 0 ? -(i + 1) : i + 1),
-  expected: [-1, -5, -7], // Positions 1, 5, and 7 not being multiples of 2 or 3
+        input: Array.from({length: 10}, (_, i) => i % 2 === 0 ? -(i + 1) : i + 1), // alternate positive and negative numbers
+  expected: [-1, -5, -7], 
       },
     ];
   
     testCases.forEach((testCase, index) => {
       try {
-        const result = processList(testCase.input);
+        const result = processList(testCase.input); // calling the function to get the new list(without the positions of multiples 2 and 3 )
         const passed = JSON.stringify(result) === JSON.stringify(testCase.expected);
         console.log(`Test Case #${index + 1}: ${passed ? "Passed" : "Failed"}`);
         if (!passed) {
@@ -69,6 +69,35 @@ function processList(inputList) {
     });
   }
   
-  // Run the tests
+  // call the function to run the tests
+  const prompt = require("prompt-sync")();
+  console.log("press 1: if you would like to give a custom test case")
+  console.log("press 2: if you would like to run all the exsiting test cases");
+  const input = prompt("Enter your choice: ");  
+  if (input == 1) {
+    let len = parseInt(prompt("Enter the length of the array:"), 10);
+    if (isNaN(len) || len <= 0) console.error("Please enter a positive integer.");
+    else {
+        const inputString = prompt("Enter the elements of the array separated by commas: ");
+        const inputArray = inputString.split(",").map(function(item) {
+            const parsedItem = parseInt(item, 10);
+            if (isNaN(parsedItem)) throw new Error(" all elements must be integers.");
+            return parsedItem;
+        });
+        if (inputArray.length !== len)console.error(`length of the array should be match your input: ${len}.`);
+            else {
+            try {
+                const result = processList(inputArray);
+                console.log(`Your new list is: ${result}`);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+    }
+}
+else if (input == 2){
   testProcessList();
+}
+else console.log("wrong input");
+  
   

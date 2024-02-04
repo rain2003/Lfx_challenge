@@ -1,4 +1,4 @@
-function processList(inputList) {
+function ProcessList(inputList) {
     // Check if input list length is a multiple of 10
     if (inputList.length % 10 !== 0) {
       throw new Error("List length is not a multiple of 10");
@@ -15,8 +15,8 @@ function processList(inputList) {
   }
   
   // Testing the function
-  function testProcessList() {
-    const testCases = [
+  function TestProcessList() {
+    const TestCases = [
       {
         input: Array.from({length: 10}, (_, i) => i + 1), // all positive numbers
         expected: [1, 5, 7], 
@@ -51,9 +51,9 @@ function processList(inputList) {
       },
     ];
   
-    testCases.forEach((testCase, index) => {
+    TestCases.forEach((testCase, index) => {
       try {
-        const result = processList(testCase.input); // calling the function to get the new list(without the positions of multiples 2 and 3 )
+        const result = ProcessList(testCase.input); // calling the function to get the new list(without the positions of multiples 2 and 3 )
         const passed = JSON.stringify(result) === JSON.stringify(testCase.expected);
         console.log(`Test Case #${index + 1}: ${passed ? "Passed" : "Failed"}`);
         if (!passed) {
@@ -78,16 +78,16 @@ function processList(inputList) {
     let len = parseInt(prompt("Enter the length of the array:"), 10);
     if (isNaN(len) || len <= 0) console.error("Please enter a positive integer.");
     else {
-        const inputString = prompt("Enter the elements of the array separated by commas: ");
-        const inputArray = inputString.split(",").map(function(item) {
+        const InputString = prompt("Enter the elements of the array separated by commas: ");
+        const InputArray = InputString.split(",").map(function(item) {
             const parsedItem = parseInt(item, 10);
             if (isNaN(parsedItem)) throw new Error(" all elements must be integers.");
             return parsedItem;
         });
-        if (inputArray.length !== len)console.error(`length of the array should be match your input: ${len}.`);
+        if (InputArray.length !== len)console.error(`length of the array should be match your input: ${len}.`);
             else {
             try {
-                const result = processList(inputArray);
+                const result = ProcessList(InputArray);
                 console.log(`Your new list is: ${result}`);
             } catch (error) {
                 console.error(error.message);
@@ -96,7 +96,7 @@ function processList(inputList) {
     }
 }
 else if (input == 2){
-  testProcessList();
+  TestProcessList();
 }
 else console.log("wrong input");
   
